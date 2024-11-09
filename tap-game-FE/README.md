@@ -47,15 +47,15 @@ This project is a simple **Tap Game** where users can connect their wallet, view
 
  5. **Project Structure**:
     ```bash
-    src/
-  ├── components/
-  │   ├── Wallet.tsx            # Wallet connection component
-  │   └── TapGame.tsx           # Main game component
-  ├── contract/
-  │   └── index.ts              # Contract and signer setup
-  ├── App.tsx                   # Main App component
-  ├── main.tsx                  # Application entry point
-  └── index.html                # HTML template
+      src/
+    ├── components/
+    │   ├── Wallet.tsx            # Wallet connection component
+    │   └── TapGame.tsx           # Main game component
+    ├── contract/
+    │   └── index.ts              # Contract and signer setup
+    ├── App.tsx                   # Main App component
+    ├── main.tsx                  # Application entry point
+    └── index.html                # HTML template
 
 
 
