@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { getContract, getProvider, getSigner } from "../contract/index"
-import { AutomateSDK } from "@gelatonetwork/automate-sdk";
 import { Wallet } from "./wallet/wallet";
 import { GelatoRelay, CallWithERC2771Request } from "@gelatonetwork/relay-sdk";
 import CONFIG from "../config";
-
-
+import { toast } from "react-toastify";
 const apiKey = import.meta.env.VITE_GELATO_KEY;
-
 
 const relay = new GelatoRelay();
 const TapGame: React.FC = () => {
   const [score, setScore] = useState<number>(0);
-  const [autoTapTaskId, setAutoTapTaskId] = useState<string | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-//   const gelato = new AutomateSDK(
-//     import.meta.env.VITE_GELATO_API_KEY,
-//     new ethers.providers.Web3Provider((window as any).ethereum)
-//   );
 
   const fetchScore = async () => {
     try {
@@ -35,6 +26,7 @@ const TapGame: React.FC = () => {
   };
 
   const handleTap = async () => {
+    setIsLoading(true);
     const provider = getProvider()
     const signer = await getSigner();
     const chainId = (await provider.getNetwork()).chainId;
@@ -48,45 +40,29 @@ const TapGame: React.FC = () => {
             user: await signer.getAddress(),
           };
     
-        // Send the relay request using Gelato Relay
         const relayResponse = await relay.sponsoredCallERC2771(request,signer as any, apiKey);
         console.log("Tap transaction sent:", relayResponse);
+        toast.success(`Tap transaction sent: ${JSON.stringify(relayResponse.taskId)}`);
         await fetchScore()
-    } catch (error) {
+        setIsLoading(false);
+    } catch (error: any) {
       console.error("Failed to tap:", error);
+      toast.error(`${error.message}`);
     }
   };
-//   const setupAutoTap = async () => {
-//     try {
-//       const signer = await getSigner();
-//       const contract = getContract(signer);
-//       const tapData = contract.interface.encodeFunctionData("tap");
-
-//       const { taskId } = await gelato.createTask({
-//         execAddress: contract.address,
-//         execSelector: contract.interface.getSighash("tap"),
-//         execData: tapData,
-//       });
-
-//       setAutoTapTaskId(taskId);
-//     } catch (error) {
-//       console.error("Error setting up auto-tap:", error);
-//     }
-//   };
-
-//   const cancelAutoTap = async () => {
-//     try {
-//       if (autoTapTaskId) {
-//         await gelato.cancelTask(autoTapTaskId);
-//         setAutoTapTaskId(null);
-//       }
-//     } catch (error) {
-//       console.error("Error canceling auto-tap:", error);
-//     }
-//   };
+  
 
   useEffect(() => {
-    fetchScore();
+
+    const interval = setInterval(async () => {
+      const signer = await getSigner();
+      if (signer) {
+
+      await fetchScore();
+      }
+    }, 10000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -110,30 +86,6 @@ const TapGame: React.FC = () => {
           {isLoading ? "Tapping..." : "Tap!"}
         </button>
 
-        <div className="flex justify-between gap-4">
-          <button
-            // onClick={setupAutoTap}
-            className={`w-full px-4 py-2 rounded-lg font-semibold text-white transition-colors ${
-              autoTapTaskId
-                ? "bg-green-500 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700"
-            }`}
-            disabled={autoTapTaskId}
-          >
-            Enable Auto-Tap
-          </button>
-          <button
-            // onClick={cancelAutoTap}
-            className={`w-full px-4 py-2 rounded-lg font-semibold text-white transition-colors ${
-              !autoTapTaskId
-                ? "bg-red-500 cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-700"
-            }`}
-            disabled={!autoTapTaskId}
-          >
-            Disable Auto-Tap
-          </button>
-        </div>
       </div>
     </div>
   );

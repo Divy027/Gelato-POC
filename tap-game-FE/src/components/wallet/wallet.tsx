@@ -111,7 +111,7 @@ export function Wallet() {
 			{connectStatus === "connected" && (
 				<div className="flex items-center justify-between gap-4 text-green-600 font-medium text-uppercase border-2 border-green-600 rounded-md p-2">
 					<div>
-						{account ? `${account.address.slice(0, 5)}...${account.address.slice(-4)}` : ""}
+						{account ? `${account?.address?.slice(0, 5)}...${account?.address?.slice(-4)}` : ""}
 					</div>
 					<div>Connected</div>
 				</div>
