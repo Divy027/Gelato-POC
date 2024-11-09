@@ -29,7 +29,7 @@ This project is a simple **Tap Game** where users can connect their wallet, view
 ## Setup
 
 ### Prerequisites
-- **Node.js** (>= 14.x)
+- **Node.js** (>= 18.x)
 - **yarn** or **npm**
 
 ### Installation
