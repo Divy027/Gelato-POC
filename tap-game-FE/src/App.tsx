@@ -3,7 +3,6 @@ import TapGame from './components/TapGame'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function App() {
 
   return (
@@ -16,7 +15,6 @@ function App() {
         newestOnTop={false}
         rtl={false}
       />
-      
     </>
   )
 }

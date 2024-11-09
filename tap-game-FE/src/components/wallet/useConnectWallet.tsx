@@ -37,7 +37,6 @@ export function useConnectWallet(): ConnectWalletReturnType {
           console.error("Failed to get accounts:", error);
         }
 
-        // Listen for account changes
         window.ethereum.on("accountsChanged", (accounts: any) => {
           if (accounts.length === 0) {
             setAccount(null);
@@ -48,7 +47,6 @@ export function useConnectWallet(): ConnectWalletReturnType {
           }
         });
 
-        // Listen for network changes
         window.ethereum.on("chainChanged", () => {
           setProvider(new ethers.BrowserProvider(window.ethereum as any));
           setAccount(null);
