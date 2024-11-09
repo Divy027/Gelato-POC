@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Tap Game - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple **Tap Game** where users can connect their wallet, view their score, and make a transaction to increment their score on-chain by tapping. It leverages the **Gelato ERC-2771 relay SDK** for gasless transactions, allowing users to perform the tap action without needing ETH in their wallet for gas fees.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Future Improvements](#future-improvements)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Wallet Connection**: Users can connect their wallets to interact with the game.
+- **View Score**: The score is fetched from the smart contract every 10 seconds and displayed to the user.
+- **Gasless Tap Transaction**: Uses Gelato’s ERC-2771 SDK to perform gasless transactions for tapping, so users can increment their score without holding ETH.
+- **Periodic Score Update**: Automatically fetches and updates the score every 10 seconds.
 
-## Expanding the ESLint configuration
+> **Note**: The auto-tap feature has been removed, so users must tap manually to increment their score.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
+- **React**: Frontend framework for building the UI.
+- **ethers.js**: To interact with the Ethereum blockchain.
+- **Gelato SDK**: Used for creating gasless transactions via ERC-2771.
+- **TypeScript**: For type-safe JavaScript.
+- **Vite**: Fast build and development tool.
 
-- Configure the top-level `parserOptions` property like this:
+## Setup
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prerequisites
+- **Node.js** (>= 14.x)
+- **yarn** or **npm**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Installation
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-repo/tap-game.git
+   cd tap-game
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+2. **Install dependencies**:
+   ```bash
+    Copy code
+    yarn install
+    # or
+    npm install
+
+ 3. **Environment Variable**:
+    Create a `.env` file in the root directory and add your Gelato API key:
+ 
+  ```bash
+  VITE_GELATO_API_KEY=<your_gelato_api_key>
+
+4.  **Start the development server**:
+  ```bash
+  yarn dev
+  # or
+  npm run dev
+
+5. **Project Structure**:
+  ```bash
+  src/
+├── components/
+│   ├── Wallet.tsx            # Wallet connection component
+│   └── TapGame.tsx           # Main game component
+├── contract/
+│   └── index.ts              # Contract and signer setup
+├── App.tsx                   # Main App component
+├── main.tsx                  # Application entry point
+└── index.html                # HTML template
+
+
+
+
