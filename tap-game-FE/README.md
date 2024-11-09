@@ -36,26 +36,26 @@ This project is a simple **Tap Game** where users can connect their wallet, view
  3. **Environment Variable**:
     Create a `.env` file in the root directory and add your Gelato API key:
  
-  ```bash
-  VITE_GELATO_API_KEY=<your_gelato_api_key>
+    ```bash
+    VITE_GELATO_API_KEY=<your_gelato_api_key>
 
-4.  **Start the development server**:
-  ```bash
-  yarn dev
-  # or
-  npm run dev
+ 4. **Start the development server**:
+    ```bash
+    yarn dev
+    # or
+    npm run dev
 
-5. **Project Structure**:
-  ```bash
-  src/
-├── components/
-│   ├── Wallet.tsx            # Wallet connection component
-│   └── TapGame.tsx           # Main game component
-├── contract/
-│   └── index.ts              # Contract and signer setup
-├── App.tsx                   # Main App component
-├── main.tsx                  # Application entry point
-└── index.html                # HTML template
+ 5. **Project Structure**:
+    ```bash
+    src/
+  ├── components/
+  │   ├── Wallet.tsx            # Wallet connection component
+  │   └── TapGame.tsx           # Main game component
+  ├── contract/
+  │   └── index.ts              # Contract and signer setup
+  ├── App.tsx                   # Main App component
+  ├── main.tsx                  # Application entry point
+  └── index.html                # HTML template
 
 
 
